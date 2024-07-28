@@ -1,0 +1,8 @@
+*.pkl
+./model/*
+./test_images/* 
+# Pycache
+./__pycache__/*
+*.pyc
+./networks/__pycache__/*
+

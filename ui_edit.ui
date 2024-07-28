@@ -507,7 +507,7 @@ background:qradialgradient(spread:repeat, cx:1, cy:0, radius:1.799, fx:0.624, fy
          </item>
          <item>
           <property name="text">
-           <string>Navier-Stokes</string>
+           <string>mat</string>
           </property>
          </item>
         </widget>

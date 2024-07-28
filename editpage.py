@@ -92,7 +92,7 @@ class Editpage(QMainWindow):
 		
 		####--add new inpainting methods here--####
 		 
-		self.addInpaintingMethod("Deepfill") 
+		self.addInpaintingMethod("cs-mat") 
 	
 		####-----------------------------------####
 	

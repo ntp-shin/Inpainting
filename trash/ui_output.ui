@@ -136,7 +136,7 @@ font-size: 18px;
 </string>
        </property>
        <property name="text">
-        <string>  Algorithm: Navier Stokes,    Time: 1.5 seconds</string>
+        <string>  Algorithm: mat,    Time: 1.5 seconds</string>
        </property>
       </widget>
       <widget class="QPushButton" name="save_button">

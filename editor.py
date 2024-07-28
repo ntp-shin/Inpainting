@@ -157,14 +157,14 @@ class Editor(QtWidgets.QGraphicsView):
         img = np.array(self._current_image)              
         mask = rgb_view(self._mask)
 
-        if self._method == "Navier-Stokes":
-            output_rgb = backend.inpaint_cv2(img, mask,method="ns")
+        if self._method == "mat":
+            output_rgb = backend.ours_inpaint(img, mask, method="mat")     
 
         elif self._method == "Telea":
             output_rgb = backend.inpaint_cv2(img, mask,method="telea") 
 
-        elif self._method == "Deepfill":                        
-            output_rgb = backend.inpaint_deepfill(img, mask)        
+        elif self._method == "cs-mat":                        
+            output_rgb = backend.ours_inpaint(img, mask, method="cs-mat")        
         
         #############################################
         # add calls to your inpainting methods here #
