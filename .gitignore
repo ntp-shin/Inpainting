@@ -5,4 +5,4 @@ test_images/*
 __pycache__/*
 *.pyc
 networks/__pycache__/*
-
+*.ipynb

@@ -74,8 +74,8 @@ class Editor(QtWidgets.QGraphicsView):
         self._mask.fill(Qt.black)
 
     def setPhoto(self, pixmap=None):
-        if pixmap.height() > 720 or pixmap.width() > 1280:
-            pixmap = pixmap.scaled(1280, 720, Qt.KeepAspectRatio)
+        if pixmap.height() != 512 or pixmap.width() != 512:
+            pixmap = pixmap.scaled(512, 512, Qt.KeepAspectRatio)
         self._zoom = 0
         self._unmarkedImage = QPixmap(pixmap)
         self._current_image = rgb_view(pixmap.toImage())
@@ -111,6 +111,7 @@ class Editor(QtWidgets.QGraphicsView):
     def mouseMoveEvent(self, event):
 
         if(event.buttons() and Qt.LeftButton) and self.drawing:
+            print('Drawinggg')
             if self.set_mask:
                 self.setMask()
                 self.set_mask = False
@@ -153,9 +154,18 @@ class Editor(QtWidgets.QGraphicsView):
 
 
     def inpaint(self):
-
-        img = np.array(self._current_image)              
-        mask = rgb_view(self._mask)
+        # This becauses:
+        # 1. Inpainter project use 1 for mask and 0 for image
+        # 2. Our project use 0 for mask and 1 for image
+        # 3. mask can be created by drawing on the image or by loading a mask image
+        img = np.array(self._current_image)
+        try:
+            # OUR MASK
+            mask = cv2.imread(self._mask)
+            mask = 255 - mask
+        except:
+            # Inpainter MASK: Drawn on the image
+            mask = rgb_view(self._mask)
 
         if self._method == "mat":
             output_rgb = backend.ours_inpaint(img, mask, method="mat")     
@@ -179,7 +189,14 @@ class Editor(QtWidgets.QGraphicsView):
         self._current_image = output_rgb
         self._photo.setPixmap(QPixmap(output))
 
-
+    def add_mask(self):
+        try:
+            mask_path, _ = QFileDialog.getOpenFileName(None, "Open mask file...")
+            # if mask_path value in [0, 255] => convert to [0, 1]
+            self._mask = mask_path
+        except:
+            return
+    
     def save(self):
         try:
             image_path, _ = QFileDialog.getSaveFileName() 

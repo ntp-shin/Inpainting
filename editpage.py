@@ -30,6 +30,7 @@ class Editpage(QMainWindow):
 	def setupUi(self):
 
 		uic.loadUi(resource_path("ui_edit.ui"), self)
+		self.maskButton = self.findChild(QPushButton, "mask_button")
 		self.penButton = self.findChild(QPushButton, "pen_button")
 		self.eraserButton = self.findChild(QPushButton, "eraser_button")
 		self.backButton = self.findChild(QPushButton, "back_button")
@@ -72,6 +73,7 @@ class Editpage(QMainWindow):
 		self.blueMarker.clicked.connect(self.blueSelect)
 		self.greenMarker.clicked.connect(self.greenSelect)
 
+		self.maskButton.clicked.connect(self.add_mask)
 		self.inpaintButton.clicked.connect(self.inpaintImage)
 		self.saveButton.clicked.connect(self.saveImage)
 		self.resetButton.clicked.connect(self.resetImage)
@@ -194,6 +196,8 @@ class Editpage(QMainWindow):
 		
 
 	def inpaintImage(self):
+		print("Method: ", self.imageView._method)
+		print("Inpainting...")
 		self.imageView.inpaint()
 
 	def saveImage(self):
@@ -202,6 +206,9 @@ class Editpage(QMainWindow):
 	def resetImage(self):
 		self.imageView.reset()
 
+	def add_mask(self):
+		print("Adding mask...")
+		self.imageView.add_mask()
 
 	
 if __name__ == "__main__":
