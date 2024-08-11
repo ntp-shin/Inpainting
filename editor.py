@@ -120,9 +120,11 @@ class Editor(QtWidgets.QGraphicsView):
                 painter.begin(self)
             painter.setRenderHint(QPainter.Antialiasing, True)
             if self.drawMode:
-                painter.setPen(QPen(Qt.white, self.brushSlider.value(), Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+                painter.setPen(QPen(Qt.white, self.brushSlider.value(), \
+                                    Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             else:
-                painter.setPen(QPen(Qt.black, self.brushSlider.value(), Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+                painter.setPen(QPen(Qt.black, self.brushSlider.value(), \
+                                    Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             painter.drawLine(self.lastPoint, self.mapToScene(event.pos()))
             painter.end()
             self.lastPoint = self.mapToScene(event.pos())
@@ -188,6 +190,7 @@ class Editor(QtWidgets.QGraphicsView):
         self.setMask()
         self._current_image = output_rgb
         self._photo.setPixmap(QPixmap(output))
+        print('Inpainting done')
 
     def add_mask(self):
         try:
@@ -196,7 +199,16 @@ class Editor(QtWidgets.QGraphicsView):
             self._mask = mask_path
         except:
             return
-    
+        img = np.array(self._current_image, dtype = np.float32)
+        mask = cv2.imread(self._mask)
+        mask = 255 - mask
+        channel = self.color_index[self.brushColor]
+        ind = np.all(mask != [0,0,0], axis=-1)
+        color = np.array([50,50,50], dtype = np.float32)
+        color[channel] = 250
+        img[ind] = img[ind]*0.45 + color*0.55
+        self._photo.setPixmap(QPixmap(array2qimage(img)))
+        print('Mask added')
     def save(self):
         try:
             image_path, _ = QFileDialog.getSaveFileName() 
