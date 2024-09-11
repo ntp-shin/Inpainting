@@ -96,7 +96,7 @@ def inpaint_mat(image: np.ndarray, mask: np.ndarray, model_path: str,  method="m
     return output
 
 def ours_inpaint(image, mask, method="mat"):
-    model_path01 = 'model/mat-25m(public).pkl'
+    model_path01 = 'model/mat-4m92.pkl'
     model_path02 = 'model/cs-mat-4m2(new-loss).pkl'
     if method == "mat":
         output = inpaint_mat(image, mask, model_path01, method=method)

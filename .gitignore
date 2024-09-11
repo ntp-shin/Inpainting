@@ -1,6 +1,6 @@
 
 model/*
-test_images/* 
+# test_images/* 
 # Pycache
 __pycache__/*
 *.pyc
