@@ -13,19 +13,13 @@ remove forground objects. This is a GUI application that helps you do just that.
 </p>
 
 ### Requirements
+***You must have Nvidia GPU with CUDA support to run the inpainting algorithms.***
 - Recommended Python version 3.7 with conda environment
 - PyQt5 version 5.15.7
 - opencv-python version 4.1.2.30
 - torch version 1.7.1+cu110
 - torchvision version 0.8.2+cu110
 - qimage2ndarray version 1.8.3
-
-### Implementation
-The frontend GUI is developed using PyQt. The backend inpainting operations are done using *OpenCV* library. Currently, *OpenCV* provides two algorithms for inpainting which are-
-* cv2.INPAINT_TELEA: An image inpainting technique based on the fast marching method (Telea, 2004)
-* cv2.INPAINT_NS: Navier-stokes, Fluid dynamics, and image and video inpainting (Bertalmío et al., 2001)
-
-I've mentioned how you can quickly incorporate other inpainting algorithms with this GUI applications down below. Later on, I'll try to incorporate recent deep learning methods that perform way better than these classical image processing algorithms. 
 
 <h4 align="center">
 <p>let's see an exmaple
@@ -37,8 +31,20 @@ I've mentioned how you can quickly incorporate other inpainting algorithms with 
 <p>removes text quite well!
 </h4>
 
-### Required libraries
-PyQt, Numpy, OpenCV3, qimage2ndarray
+### Prepare the pre-trained models
+1. Download the pre-trained models from the following links:
+- [MAT model](https://1drv.ms/u/c/faa4073c72266603/EYOjBit6I75CnzWHbDtadRIBWmwzMqGFOR-4_Te8knKSiw?e=2Q24Yz)
+- [CS-MAT model](https://1drv.ms/u/c/faa4073c72266603/ETBcdK3KB49JmKbLNGqRWAMBggvA1CJLp8V_C1dsV1TTXw?e=TVm3jQ)
+
+2. Create 'model' folder in the project directory and place the downloaded models in it. Like this:
+``` bash
+Inpainting
+|__ model
+    |__ mat-4m92.pkl
+    |__ cs-mat-4m2(new-loss).pkl
+|__ inpainter.py  
+```
+
 
 ### How to run
 1. Clone the repository
@@ -65,7 +71,34 @@ python inpainter.py
  <img alt="editing" src="https://github.com/Zedd1558/Image-Inpainter/blob/master/demo/inpaint_demo2.gif">
 </p>
 
+### Fix Bug
+**1. If you use Windows OS and have an error like this**: 
+``` bash
+Building wheels for collected packages: PyQt5-sip
+  Building wheel for PyQt5-sip (pyproject.toml) ... error
+  error: subprocess-exited-with-error
 
-### Contribute
-Feel free to fork the project and contribute. You can incorporate recent deep learning methods, make the GUI more easy to use, include relevant photo editing features. 
+  × Building wheel for PyQt5-sip (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [5 lines of output]
+      running bdist_wheel
+      running build
+      running build_ext
+      building 'PyQt5.sip' extension
+      error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+      [end of output]
 
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for PyQt5-sip
+Failed to build PyQt5-sip
+ERROR: Could not build wheels for PyQt5-sip, which is required to install pyproject.toml-based projects
+```
+
+Try to fix it by installing the Microsoft Visual C++ 14.0 or greater:
+- You can download it from [here](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+- Open the installer and select the "Desktop development with C++" workload
+
+### References
+- [Inpainter](https://github.com/zahid58/Inpainter) This project is inspired by this repository.
+- [MAT](https://arxiv.org/abs/2203.15270) The MAT model is proposed in this paper.
+- CS-MAT is our modification of the MAT model. 
