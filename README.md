@@ -33,8 +33,8 @@ remove forground objects. This is a GUI application that helps you do just that.
 
 ### Prepare the pre-trained models
 1. Download the pre-trained models from the following links:
-- [MAT model](https://1drv.ms/u/c/faa4073c72266603/EYOjBit6I75CnzWHbDtadRIBWmwzMqGFOR-4_Te8knKSiw?e=2Q24Yz)
-- [CS-MAT model](https://1drv.ms/u/c/faa4073c72266603/ETBcdK3KB49JmKbLNGqRWAMBggvA1CJLp8V_C1dsV1TTXw?e=TVm3jQ)
+- [MAT model](https://drive.google.com/file/d/1XPjtk3s3viMvbXiIyvRZBHN2yd3wVZ8a/view?usp=sharing)
+- [CS-MAT model](https://drive.google.com/file/d/1IAI3VnUZHlmcjqb_YgkfYCxLAMNmcpij/view?usp=sharing)
 
 2. Create 'model' folder in the project directory and place the downloaded models in it. Like this:
 ``` bash
@@ -101,4 +101,5 @@ Try to fix it by installing the Microsoft Visual C++ 14.0 or greater:
 ### References
 - [Inpainter](https://github.com/zahid58/Inpainter) This project is inspired by this repository.
 - [MAT](https://arxiv.org/abs/2203.15270) The MAT model is proposed in this paper.
+
 - CS-MAT is our modification of the MAT model. 
